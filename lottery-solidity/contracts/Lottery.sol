@@ -5,7 +5,7 @@ contract Lottery {
 
     address[] public players;
 
-    costructor() public{
+    constructor() public{
         manager=msg.sender;
     }
 
@@ -16,6 +16,23 @@ contract Lottery {
 
     function getAllPlayers() public view returns(address[]) {
       return players;
+    }
+
+    function pickWinner() public restricted {
+      uint index=random() % players.length;
+      players[index].transfer(address(this).balance);
+      //Initiate players with dynamic address array with zero address i.e. the empty address
+
+      players=new address[](0);
+    }
+
+    function random() private view returns (uint8){
+      return uint8(uint256(keccak256(abi.encodePacked(block.timestamp, block.difficulty))));
+    }
+
+    modifier restricted(){
+      require (msg.sender==manager);
+      _;
     }
 
 }

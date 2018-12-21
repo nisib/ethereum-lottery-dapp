@@ -8,5 +8,4 @@ It is a simple dapp application which uses blockchain(ethereum framework). In th
 <li>lottery-solidity</li>
 </ul>
 
-# Running the application in the local environment:
- 
+### Running the application in the local environment:
